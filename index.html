@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Мини-игра «Угадай пароль»">
+  <title>Угадай пароль</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+    <div class="badge">HTML GAME</div>
+    <h1>🔐 Угадай пароль</h1>
+    <p class="subtitle">Введи пароль и узнай, смог ли ты пройти проверку.</p>
+
+    <form id="passwordForm" autocomplete="off">
+      <label for="passwordInput">Введите пароль</label>
+      <div class="input-row">
+        <input id="passwordInput" type="text" placeholder="Пароль..." spellcheck="false">
+        <button type="submit">Проверить</button>
+      </div>
+    </form>
+
+    <section id="result" class="result" aria-live="polite">
+      <strong>Результат появится здесь</strong>
+      <span>Введите пароль выше.</span>
+    </section>
+
+    <div class="message">
+      <h2>💬 Послание</h2>
+      <p id="messageText">Попробуй разгадать пароль — и внимательно читай результат.</p>
+    </div>
+
+    <div class="info">
+      <h2>ℹ️ Сведения</h2>
+      <ul>
+        <li>Сайт сделан на <b>HTML + CSS + JavaScript</b>.</li>
+        <li>Пароль специально находится в коде страницы — это часть задания.</li>
+        <li>Это учебная мини-игра, поэтому пароль не является настоящим секретом.</li>
+      </ul>
+    </div>
+
+    <footer>Если пароль верен — сделай скриншот результата и отправь в Telegram: <b>@Timofeytide</b></footer>
+  </main>
+
+  <script>
+    // Пароль специально оставлен в исходном коде по условиям игры.
+    const CORRECT_PASSWORD = "qwertysixseveniloxsyka2286767";
+
+    const form = document.getElementById("passwordForm");
+    const input = document.getElementById("passwordInput");
+    const result = document.getElementById("result");
+    const message = document.getElementById("messageText");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const entered = input.value.trim();
+
+      result.className = "result";
+
+      if (entered === "3337333") {
+        result.classList.add("wrong", "shake");
+        result.innerHTML = "<strong>😂 Ха-ха-ха, лох!</strong><span>Пароль неправильный.</span>";
+        message.textContent = "Не тот пароль 😈 Попробуй ещё раз.";
+        setTimeout(() => result.classList.remove("shake"), 450);
+        return;
+      }
+
+      if (entered === CORRECT_PASSWORD) {
+        result.classList.add("correct");
+        result.innerHTML = "<strong>🎉 Пароль верный!</strong><span>Ты прошёл проверку. Сделай скриншот этого результата и отправь его в Telegram: @Timofeytide — по условиям игры тебе обещано 500 ₽.</span>";
+        message.textContent = "Поздравляю! Ты нашёл правильный пароль.";
+        return;
+      }
+
+      result.classList.add("wrong");
+      result.innerHTML = "<strong>❌ Пароль неправильный</strong><span>Попробуй другой вариант.</span>";
+      message.textContent = "Подсказка: пароль находится в исходном коде страницы.";
+    });
+  </script>
+</body>
+</html>
